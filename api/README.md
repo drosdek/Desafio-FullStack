@@ -6,7 +6,7 @@
   <h3 align="center">API RESTful - Cadastro de Desenvolvedores</h3>
 
   <p align="center">
-    Serviço em NodeJS com Express e Mongoose.
+    Serviço em NodeJS com Express e MongoDB.
     <br />
     <a href="https://github.com/drosdek/Desafio-FullStack"><strong>Explore the docs »</strong></a>
     <br />
@@ -21,16 +21,13 @@
 <!-- TABLE OF CONTENTS -->
 ## Tabela de conteúdo
 
-* [Sobre o Projeto](#about-the-project)
-  * [Built With](#built-with)
-* [Getting Started](#getting-started)
-  * [Prerequisites](#prerequisites)
-  * [Installation](#installation)
-* [Usage](#usage)
-* [Roadmap](#roadmap)
-* [Contributing](#contributing)
-* [License](#license)
-* [Contact](#contact)
+* [Sobre o Projeto](#sobre-o-projeto)
+  * [Construido com](#construido-com)
+* [Começando](#começando)
+  * [Prerequisitos](#prerequisitos)
+  * [Instalação](#instalação)
+* [Usando](#usando)
+* [Contato](#contato)
 * [Acknowledgements](#acknowledgements)
 
 
@@ -48,7 +45,7 @@ Here's a blank template to get started:
 
 * [NodeJs](https://nodejs.org/)
 * [Express](https://expressjs.com/)
-* [Mongoose](https://mongoosejs.com/)
+* [MongoDB](https://www.mongodb.com/docs/atlas/getting-started/)
 
 
 
@@ -106,20 +103,17 @@ Link do projeto: [https://github.com/drosdek/Desafio-FullStack](https://github.c
 
 * [Best-README-Template ](https://gitlab.unige.ch/Joakim.Tutt/Best-README-Template/-/tree/master/)
 * [Markedown Guide](https://www.markdownguide.org/basic-syntax/#reference-style-links)
+* [Cors](http://expressjs.com/en/resources/middleware/cors.html)
+* [Body-parser](http://expressjs.com/en/resources/middleware/body-parser.html)
 * [Postman](https://learning.postman.com/docs/)
+* [mongoose](https://mongoosejs.com/docs/)
+* [NodeJs](https://nodejs.org/)
+* [Express](https://expressjs.com/)
+* [MongoDB](https://www.mongodb.com/docs/atlas/getting-started/)
+
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/drosdek/repo.svg?style=flat-square
-[contributors-url]: https://github.com/drosdek/repo/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/drosdek/repo.svg?style=flat-square
-[forks-url]: https://github.com/drosdek/repo/network/members
-[stars-shield]: https://img.shields.io/github/stars/drosdek/repo.svg?style=flat-square
-[stars-url]: https://github.com/drosdek/repo/stargazers
-[issues-shield]: https://img.shields.io/github/issues/drosdek/repo.svg?style=flat-square
-[issues-url]: https://github.com/drosdek/repo/issues
-[license-shield]: https://img.shields.io/github/license/drosdek/repo.svg?style=flat-square
-[license-url]: https://github.com/drosdek/repo/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/josneidrosdek/
 [product-screenshot]: images/screenshot.png
