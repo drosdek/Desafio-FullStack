@@ -11,13 +11,13 @@ module.exports = {
 function create(req, res, next) {
   desenvolvedoresRepository
     .create(req.body)
-    .then((desenvolvedor) => res.json(desenvolvedor))
+    .then((desenvolvedor) => res.status(201).json(desenvolvedor))
     .catch((err) => next(err));
 }
 
 function getAll(req, res, next) {
   desenvolvedoresRepository
-    .getAll()
+    .getAll(req.query)
     .then((desenvolvedores) => res.json(desenvolvedores))
     .catch((err) => next(err));
 }
@@ -25,7 +25,9 @@ function getAll(req, res, next) {
 function getById(req, res, next) {
   desenvolvedoresRepository
     .getById(req.params.id)
-    .then((desenvolvedor) => (desenvolvedor ? res.json(desenvolvedor) : res.sendStatus(404)))
+    .then((desenvolvedor) =>
+      desenvolvedor ? res.json(desenvolvedor) : res.sendStatus(404)
+    )
     .catch((err) => next(err));
 }
 
@@ -39,6 +41,6 @@ function update(req, res, next) {
 function _delete(req, res, next) {
   desenvolvedoresRepository
     .delete(req.params.id)
-    .then((desenvolvedor) => res.json(desenvolvedor))
+    .then(() => res.sendStatus(204))
     .catch((err) => next(err));
 }

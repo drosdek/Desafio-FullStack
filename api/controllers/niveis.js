@@ -1,23 +1,23 @@
 const niveisRepository = require("../repositories/niveis");
 
 module.exports = {
-  post,
+  create,
   getAll,
   getById,
   update,
   delete: _delete,
 };
 
-function post(req, res, next) {
+function create(req, res, next) {
   niveisRepository
     .create(req.body)
-    .then(() => res.json({}))
+    .then((niveis) => res.status(201).res.json(niveis))
     .catch((err) => next(err));
 }
 
 function getAll(req, res, next) {
   niveisRepository
-    .getAll()
+    .getAll(req.query)
     .then((niveis) => res.json(niveis))
     .catch((err) => next(err));
 }
@@ -32,13 +32,13 @@ function getById(req, res, next) {
 function update(req, res, next) {
   niveisRepository
     .update(req.params.id, req.body)
-    .then(() => res.json({}))
+    .then((niveis) => res.json(niveis))
     .catch((err) => next(err));
 }
 
 function _delete(req, res, next) {
   niveisRepository
     .delete(req.params.id)
-    .then(() => res.json({}))
+    .then(() => res.sendStatus(204))
     .catch((err) => next(err));
 }
