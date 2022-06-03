@@ -38,7 +38,7 @@ function update(req, res, next) {
 
 function _delete(req, res, next) {
   niveisRepository
-    .delete(req.params.id)
-    .then(() => res.sendStatus(204))
+    .delete(req.params.id, res)
+    .then((nivel) => (nivel === 'RemoveError' ? res.sendStatus(501) : res.sendStatus(204)))
     .catch((err) => next(err));
 }

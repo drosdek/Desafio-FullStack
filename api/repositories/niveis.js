@@ -57,7 +57,7 @@ async function update(id, nivelParam) {
 async function _delete(id) {
   const desenvolvedor = await desenvolvedoresRepository.findOneByNivel(id);
   if (desenvolvedor) {
-    throw "Nivel contem desenvolvedor cadastrado!";
+    return 'RemoveError';
   } else {
     return await Niveis.findByIdAndRemove(id);
   }
