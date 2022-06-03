@@ -1,5 +1,6 @@
 const config = require("../config.json");
 const db = require("../middleware/db");
+const desenvolvedoresRepository = require("./desenvolvedores");
 
 const Niveis = db.Niveis;
 
@@ -11,8 +12,8 @@ module.exports = {
   delete: _delete,
 };
 
-async function getAll() {
-  return await Niveis.find();
+async function getAll(query) {
+  return await Niveis.find(query);
 }
 
 async function getById(id) {
@@ -29,6 +30,8 @@ async function create(nivelParam) {
 
   // salvar nivel
   await nivel.save();
+
+  return nivel;
 }
 
 async function update(id, nivelParam) {
@@ -47,8 +50,15 @@ async function update(id, nivelParam) {
   Object.assign(nivel, nivelParam);
 
   await nivel.save();
+
+  return nivel;
 }
 
 async function _delete(id) {
-  await Niveis.findByIdAndRemove(id);
+  const desenvolvedor = await desenvolvedoresRepository.findOneByNivel(id);
+  if (desenvolvedor) {
+    throw "Nivel contem desenvolvedor cadastrado!";
+  } else {
+    return await Niveis.findByIdAndRemove(id);
+  }
 }

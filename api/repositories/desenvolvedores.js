@@ -8,15 +8,20 @@ module.exports = {
   getById,
   create,
   update,
+  findOneByNivel,
   delete: _delete,
 };
 
-async function getAll() {
-  return await Desenvolvedores.find();
+async function getAll(query) {
+  return await Desenvolvedores.find(query);
 }
 
 async function getById(id) {
   return await Desenvolvedores.findById(id);
+}
+
+async function findOneByNivel(id) {
+  return await Desenvolvedores.findOne({ nivel: id });
 }
 
 async function create(devParam) {
@@ -30,7 +35,7 @@ async function create(devParam) {
   // salvar desenvolvedor
   await desenvolvedor.save();
 
-  return desenvolvedor
+  return desenvolvedor;
 }
 
 async function update(id, devParam) {
@@ -50,7 +55,7 @@ async function update(id, devParam) {
 
   await desenvolvedor.save();
 
-  return desenvolvedor
+  return desenvolvedor;
 }
 
 async function _delete(id) {
