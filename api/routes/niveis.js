@@ -5,7 +5,7 @@ var niveis = require("../controllers/niveis");
 // routes
 router.get("/", niveis.getAll);
 router.get("/:id", niveis.getById);
-router.post("/", niveis.post);
+router.post("/", niveis.create);
 router.put("/:id", niveis.update);
 router.delete("/:id", niveis.delete);
 
