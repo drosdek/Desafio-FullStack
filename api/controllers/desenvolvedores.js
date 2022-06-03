@@ -18,7 +18,11 @@ function create(req, res, next) {
 function getAll(req, res, next) {
   desenvolvedoresRepository
     .getAll(req.query)
-    .then((desenvolvedores) => res.json(desenvolvedores))
+    .then((desenvolvedores) =>
+      desenvolvedores === null || desenvolvedores === []
+        ? res.sendStatus(404)
+        : res.json(desenvolvedores)
+    )
     .catch((err) => next(err));
 }
 

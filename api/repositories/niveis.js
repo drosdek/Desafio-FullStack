@@ -13,6 +13,9 @@ module.exports = {
 };
 
 async function getAll(query) {
+  if (query.nivel) {
+    return await Niveis.findOne({ nivel: query.nivel });
+  }
   return await Niveis.find(query);
 }
 
@@ -22,8 +25,8 @@ async function getById(id) {
 
 async function create(nivelParam) {
   // validação
-  if (await Niveis.findOne({ nome: nivelParam.nome })) {
-    throw 'Nivel com nome "' + nivelParam.nome + '" já está cadastrado!';
+  if (await Niveis.findOne({ nivel: nivelParam.nivel })) {
+    throw 'Nivel com nome "' + nivelParam.nivel + '" já está cadastrado!';
   }
 
   const nivel = new Niveis(nivelParam);
@@ -55,9 +58,11 @@ async function update(id, nivelParam) {
 }
 
 async function _delete(id) {
-  const desenvolvedor = await desenvolvedoresRepository.findOneByNivel(id);
+  let uid = await Niveis.findById({ _id: id });
+  let desenvolvedor = await desenvolvedoresRepository.findOneByNivel(id);
+  if (!uid) throw "Nivel não encontrado!";
   if (desenvolvedor) {
-    return 'RemoveError';
+    return "RemoveError";
   } else {
     return await Niveis.findByIdAndRemove(id);
   }

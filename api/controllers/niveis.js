@@ -11,14 +11,16 @@ module.exports = {
 function create(req, res, next) {
   niveisRepository
     .create(req.body)
-    .then((niveis) => res.status(201).res.json(niveis))
+    .then((niveis) => res.status(201).json(niveis))
     .catch((err) => next(err));
 }
 
 function getAll(req, res, next) {
   niveisRepository
     .getAll(req.query)
-    .then((niveis) => res.json(niveis))
+    .then((niveis) =>
+      niveis === null || niveis === [] ? res.sendStatus(404) : res.json(niveis)
+    )
     .catch((err) => next(err));
 }
 
@@ -39,6 +41,8 @@ function update(req, res, next) {
 function _delete(req, res, next) {
   niveisRepository
     .delete(req.params.id, res)
-    .then((nivel) => (nivel === 'RemoveError' ? res.sendStatus(501) : res.sendStatus(204)))
+    .then((nivel) =>
+      nivel === "RemoveError" ? res.sendStatus(501) : res.sendStatus(204)
+    )
     .catch((err) => next(err));
 }

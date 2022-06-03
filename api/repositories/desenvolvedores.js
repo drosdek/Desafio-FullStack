@@ -1,4 +1,3 @@
-const config = require("../config.json");
 const db = require("../middleware/db");
 
 const Desenvolvedores = db.Desenvolvedores;
@@ -13,6 +12,9 @@ module.exports = {
 };
 
 async function getAll(query) {
+  if (query.nome) {
+    return await Desenvolvedores.findOne({ nome: query.nome });
+  }
   return await Desenvolvedores.find(query);
 }
 
@@ -59,5 +61,7 @@ async function update(id, devParam) {
 }
 
 async function _delete(id) {
+  let uid = await Desenvolvedores.findById({ _id: id });
+  if (!uid) throw "Desenvolvedor não encontrado!";
   await Desenvolvedores.findByIdAndRemove(id);
 }
