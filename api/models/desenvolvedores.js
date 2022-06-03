@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
-  nivel: { type: Schema.Types.ObjectId, ref: "Niveis" },
+  nivel: { type: Schema.Types.ObjectId, ref: "Niveis", required: true },
   nome: { type: String, required: true },
   sexo: { type: String },
   datanascimento: { type: Date },
