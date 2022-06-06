@@ -9,7 +9,7 @@ class Repository {
 
     return Axios.get(url, {
       method: "get",
-      timeout: 10000,
+      timeout: 10000
     }).then(({ data }) => {
       if (Array.isArray(data)) {
         return data.map(this.model.FromJSON);
@@ -23,7 +23,7 @@ class Repository {
 
     return Axios.get(url, {
       method: "get",
-      timeout: 10000,
+      timeout: 10000
     }).then(({ data }) => {
       if (Array.isArray(data)) {
         return data.map(this.model.FromJSON);
@@ -38,7 +38,7 @@ class Repository {
       return Axios.post(url, {
         method: "post",
         timeout: 10000,
-        data: data.toJSON(),
+        data: data.toJSON()
       }).then(({ data }) => {
         if (Array.isArray(data)) {
           return data.map(this.model.FromJSON);
@@ -55,7 +55,7 @@ class Repository {
       return Axios.put(url, {
         method: "put",
         timeout: 10000,
-        data: data.toJSON(),
+        data: data.toJSON()
       }).then(({ data }) => {
         if (Array.isArray(data)) {
           return data.map(this.model.FromJSON);
@@ -71,7 +71,7 @@ class Repository {
 
     return Axios.delete(url, {
       method: "delete",
-      timeout: 10000,
+      timeout: 10000
     }).then(({ data }) => {
       if (Array.isArray(data)) {
         return data.map(this.model.FromJSON);
