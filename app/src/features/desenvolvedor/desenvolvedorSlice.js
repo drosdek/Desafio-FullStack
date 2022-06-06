@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import Desenvolvedor from "../../models/desenvolvedor.model";
 
-const initialState = { value: Desenvolvedor() };
+const initialState = { value: new Desenvolvedor() };
 
 export const desenvolvedorSlice = createSlice({
   name: "desenvolvedor",

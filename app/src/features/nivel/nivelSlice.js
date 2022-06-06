@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import Nivel from "../../models/nivel.model";
 
-const initialState = { value: Nivel() };
+const initialState = { value: new Nivel() };
 
 export const nivelSlice = createSlice({
   name: "desenvolvedor",
