@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import desenvolvedorReducer from "./features/desenvolvedor/desenvolvedorSlice";
-import nivelReducer from "./features/nivel/nivelSlice";
+import desenvolvedorReducer from "./reducers/desenvolvedor/desenvolvedorSlice";
+import nivelReducer from "./reducers/nivel/nivelSlice";
+import menuReducer from "./reducers/menu/menuSlice";
 
 export const store = configureStore({
   reducer: {
     desenvolvedor: desenvolvedorReducer,
-    nivel: nivelReducer
+    nivel: nivelReducer,
+    menu: menuReducer
   }
 });

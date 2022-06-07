@@ -1,11 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
-import Desenvolvedor from "../../models/desenvolvedor.model";
 
-const initialState = { value: new Desenvolvedor() };
+function initializeState() {
+  const initialState = { keys: {}, values: [] };
+  return initialState;
+}
 
 export const desenvolvedorSlice = createSlice({
   name: "desenvolvedor",
-  initialState,
+  initialState: initializeState(),
   reducers: {
     set: (state, { payload }) => {
       state.value = payload;
