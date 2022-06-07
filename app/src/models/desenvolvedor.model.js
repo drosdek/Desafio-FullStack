@@ -8,7 +8,7 @@ class Desenvolvedor extends Model {
     sexo = "",
     datanascimento = null,
     idade = null,
-    hobby = "",
+    hobby = ""
   } = {}) {
     super();
     this._id = _id;
