@@ -2,16 +2,16 @@ import Model from "./model";
 
 class Desenvolvedor extends Model {
   constructor({
-    _id = undefined,
+    id = undefined,
     nivel = null,
     nome = "",
     sexo = "",
     datanascimento = null,
-    idade = null,
+    idade = undefined,
     hobby = ""
   } = {}) {
     super();
-    this._id = _id;
+    this.id = id;
     this.nivel = nivel;
     this.nome = nome;
     this.sexo = sexo;
