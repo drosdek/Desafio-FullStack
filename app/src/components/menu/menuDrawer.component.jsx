@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { Fragment, useMemo } from "react";
 import PropTypes from "prop-types";
 import {
   Drawer,
@@ -8,20 +8,19 @@ import {
   Divider,
   List,
   ListItem,
-  ListItemButton,
   ListItemIcon,
   ListItemText
 } from "@mui/material";
 import {
   ChevronLeft as ChevronLeftIcon,
   ChevronRight as ChevronRightIcon,
-  Inbox as InboxIcon,
-  Mail as MailIcon
+  Person as PersonIcon,
+  BarChart as BarChartIcon
 } from "@mui/icons-material";
+import { Link } from "react-router-dom";
+import { drawerStyleSx } from "./menu.style";
 
-const drawerWidth = 240;
-
-function MenuDrawer({ handleDrawerClose, isMenuOpen }) {
+function MenuDrawer({ handleDrawerClose, isMenuOpen, endpoint }) {
   const theme = useTheme();
 
   const DrawerHeader = styled("div")(({ theme }) => ({
@@ -33,54 +32,54 @@ function MenuDrawer({ handleDrawerClose, isMenuOpen }) {
     justifyContent: "flex-end"
   }));
 
+  const menus = [
+    {
+      route: "/desenvolvedores",
+      title: "Desenvolvedores",
+      icon: <PersonIcon />
+    },
+    {
+      route: "/niveis",
+      title: "Niveis",
+      icon: <BarChartIcon />
+    }
+  ];
+
+  const renderMenus = useMemo(() =>
+    menus.map((item) => (
+      <Fragment key={item.route}>
+        <Divider />
+        <ListItem
+          button
+          component={Link}
+          key={item.route}
+          selected={item.route === endpoint}
+          to={item.route}
+        >
+          <ListItemIcon>{item.icon}</ListItemIcon>
+          <ListItemText primary={item.title} />
+        </ListItem>
+      </Fragment>
+    ))
+  );
+
   return (
-    <Drawer
-      sx={{
-        width: drawerWidth,
-        flexShrink: 0,
-        "& .MuiDrawer-paper": {
-          width: drawerWidth,
-          boxSizing: "border-box"
-        }
-      }}
-      variant="persistent"
-      anchor="left"
-      open={isMenuOpen}
-    >
+    <Drawer sx={drawerStyleSx} variant="persistent" anchor="left" open={isMenuOpen}>
       <DrawerHeader>
         <IconButton onClick={handleDrawerClose}>
           {theme.direction === "ltr" ? <ChevronLeftIcon /> : <ChevronRightIcon />}
         </IconButton>
       </DrawerHeader>
       <Divider />
-      <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
+      <List>{renderMenus}</List>
     </Drawer>
   );
 }
 
 MenuDrawer.propTypes = {
   handleDrawerClose: PropTypes.func.isRequired,
-  isMenuOpen: PropTypes.bool.isRequired
+  isMenuOpen: PropTypes.bool.isRequired,
+  endpoint: PropTypes.string.isRequired
 };
 
 export default MenuDrawer;

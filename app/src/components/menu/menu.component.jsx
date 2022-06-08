@@ -5,55 +5,17 @@ import MenuDrawer from "./menuDrawer.component";
 
 import PropTypes from "prop-types";
 
-const drawerWidth = 240;
+import { menuStyle, appBarStyle, drawerStyle } from "./menu.style";
 
-const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
-  ({ theme, open }) => ({
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    background: "red",
-    transition: theme.transitions.create("margin", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-    }),
-    marginLeft: `-${drawerWidth}px`,
-    ...(open && {
-      transition: theme.transitions.create("margin", {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen
-      }),
-      marginLeft: 0
-    })
-  })
-);
+const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(menuStyle);
 
 const MuiAppBar = styled(AppBar, {
   shouldForwardProp: (prop) => prop !== "open"
-})(({ theme, open }) => ({
-  transition: theme.transitions.create(["margin", "width"], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen
-  }),
-  ...(open && {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: `${drawerWidth}px`,
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen
-    })
-  })
-}));
+})(appBarStyle);
 
-const DrawerHeader = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-  justifyContent: "flex-end"
-}));
+const DrawerHeader = styled("div")(drawerStyle);
 
-function Menu({ toggleMenu, children, isOpen }) {
+function Menu({ toggleMenu, children, isOpen, endpoint, title }) {
   const handleDrawerToggle = (e) => {
     e.preventDefault();
     toggleMenu();
@@ -74,11 +36,11 @@ function Menu({ toggleMenu, children, isOpen }) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Persistent drawer
+            {title}
           </Typography>
         </Toolbar>
       </MuiAppBar>
-      <MenuDrawer isMenuOpen={isOpen} handleDrawerClose={handleDrawerToggle} />
+      <MenuDrawer isMenuOpen={isOpen} handleDrawerClose={handleDrawerToggle} endpoint={endpoint} />
       <Main open={isOpen}>
         <DrawerHeader />
         {children}
@@ -89,13 +51,17 @@ function Menu({ toggleMenu, children, isOpen }) {
 
 Menu.defaultProps = {
   toggleMenu: () => {},
-  children: <div />
+  children: <div />,
+  title: "Sem Titulo",
+  endpoint: ""
 };
 
 Menu.propTypes = {
   children: PropTypes.node,
   toggleMenu: PropTypes.func,
-  isOpen: PropTypes.bool
+  isOpen: PropTypes.bool,
+  endpoint: PropTypes.string,
+  title: PropTypes.string
 };
 
 export default Menu;
