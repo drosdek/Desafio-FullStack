@@ -1,8 +1,8 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MainPage from "./pages/main.page";
-import NiveisPage from "./pages/niveis.page";
 import DesenvolvedoresPageContainer from "./container/desenvolvedoresPage.container";
+import NiveisPageContainer from "./container/niveisPage.container";
 
 function App() {
   return (
@@ -10,7 +10,7 @@ function App() {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/desenvolvedores" element={<DesenvolvedoresPageContainer />} />
-        <Route path="/niveis" element={<NiveisPage />} />
+        <Route path="/niveis" element={<NiveisPageContainer />} />
       </Routes>
     </BrowserRouter>
   );
