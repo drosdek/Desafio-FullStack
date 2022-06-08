@@ -3,27 +3,60 @@ import React, { useEffect, useState } from "react";
 import FormularioDesenvolvedorComponent from "../components/formularioDesenvolvedor/formularioDesenvolvedor.component";
 import Desenvolvedor from "../models/desenvolvedor.model";
 import PropTypes from "prop-types";
+import TabelaDesenvolvedor from "../components/tabelaDesenvolvedor/tabelaDesenvolvedor.component";
+import MenuContainer from "../container/menu.container";
 
-function DesenvolvedoresPage({ desenvolvedores, fetchDev, fetchNiveis, niveis, create }) {
-  const [open, setOpen] = useState(false);
+function DesenvolvedoresPage({
+  desenvolvedores,
+  fetchDev,
+  fetchNiveis,
+  niveis,
+  create,
+  update,
+  remove
+}) {
+  const [openNovo, setOpenNovo] = useState(false);
+  const [openEditar, setOpenEditar] = useState(false);
   const [desenvolvedor, setDesenvolvedor] = useState(new Desenvolvedor());
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleOpen = () => setOpenNovo(true);
+  const handleClose = () => setOpenNovo(false);
 
   useEffect(() => {
     fetchDev();
     fetchNiveis();
   }, []);
 
+  const handleEditar = (params) => {
+    setDesenvolvedor(params.row);
+    setOpenEditar(true);
+  };
+
   const handleCancelar = (e) => {
     e.preventDefault();
     setDesenvolvedor(new Desenvolvedor());
-    setOpen(false);
+    setOpenNovo(false);
+    setOpenEditar(false);
   };
 
   const handleCadastrar = (e) => {
     e.preventDefault();
     create(desenvolvedor);
+    setDesenvolvedor(new Desenvolvedor());
+    setOpenNovo(false);
+  };
+
+  const handleDeletar = (e) => {
+    e.preventDefault();
+    remove(desenvolvedor);
+    setDesenvolvedor(new Desenvolvedor());
+    setOpenEditar(false);
+  };
+
+  const handleAtualizar = (e) => {
+    e.preventDefault();
+    update(desenvolvedor);
+    setDesenvolvedor(new Desenvolvedor());
+    setOpenEditar(false);
   };
 
   const handleRefresh = (e) => {
@@ -44,16 +77,12 @@ function DesenvolvedoresPage({ desenvolvedores, fetchDev, fetchNiveis, niveis, c
   };
 
   return (
-    <>
+    <MenuContainer title="Desenvolvedores">
       <h1>Desenvolvedores</h1>
       <Button onClick={handleOpen}>Cadastrar Usuario</Button>
       <Button onClick={handleRefresh}>Atualizar</Button>
-      <li>
-        {desenvolvedores.map((dev) => (
-          <ul key={dev.id}>{dev.nome}</ul>
-        ))}
-      </li>
-      <Modal open={open} onClose={handleClose}>
+      <TabelaDesenvolvedor data={desenvolvedores} onEditar={handleEditar} />
+      <Modal open={openNovo} onClose={handleClose}>
         <Box sx={style}>
           <Typography variant="h4" textAlign="center" fontWeight="bold">
             Novo Desenvolvedor
@@ -74,7 +103,31 @@ function DesenvolvedoresPage({ desenvolvedores, fetchDev, fetchNiveis, niveis, c
           </Box>
         </Box>
       </Modal>
-    </>
+      <Modal open={openEditar} onClose={handleClose}>
+        <Box sx={style}>
+          <Typography variant="h4" textAlign="center" fontWeight="bold">
+            Editar Desenvolvedor
+          </Typography>
+          <FormularioDesenvolvedorComponent
+            desenvolvedor={desenvolvedor}
+            onUpdate={setDesenvolvedor}
+            niveis={niveis}
+          />
+          <Box mt={2} sx={{ display: "flex" }}>
+            <Button color="error" onClick={handleDeletar}>
+              Deletar
+            </Button>
+            <Box sx={{ flexGrow: 1 }} />
+            <Button color="warning" onClick={handleCancelar}>
+              Cancelar
+            </Button>
+            <Button color="primary" onClick={handleAtualizar}>
+              Atualizar
+            </Button>
+          </Box>
+        </Box>
+      </Modal>
+    </MenuContainer>
   );
 }
 
@@ -82,6 +135,8 @@ DesenvolvedoresPage.defaultProps = {
   desenvolvedores: [],
   niveis: [],
   create: () => {},
+  remove: () => {},
+  update: () => {},
   fetchDev: () => {},
   fetchNiveis: () => {}
 };
@@ -90,6 +145,8 @@ DesenvolvedoresPage.propTypes = {
   desenvolvedores: PropTypes.array,
   niveis: PropTypes.array,
   create: PropTypes.func,
+  remove: PropTypes.func,
+  update: PropTypes.func,
   fetchDev: PropTypes.func,
   fetchNiveis: PropTypes.func
 };

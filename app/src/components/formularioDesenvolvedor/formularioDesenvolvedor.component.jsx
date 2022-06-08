@@ -64,8 +64,8 @@ function FormularioDesenvolvedorComponent({ desenvolvedor, onUpdate, niveis }) {
           <FormControl fullWidth variant="standard">
             <InputLabel>Sexo</InputLabel>
             <Select onChange={handleChangeSexo} value={desenvolvedor.sexo}>
-              <MenuItem value="m">Homem</MenuItem>
-              <MenuItem value="f">Mulher</MenuItem>
+              <MenuItem value="M">Homem</MenuItem>
+              <MenuItem value="F">Mulher</MenuItem>
             </Select>
           </FormControl>
         </Grid>
@@ -104,6 +104,7 @@ function FormularioDesenvolvedorComponent({ desenvolvedor, onUpdate, niveis }) {
               variant="standard"
               placeholder="Nos conte sobre seu hobby!"
               onChange={handleChangeHobby}
+              value={desenvolvedor.hobby}
             />
           </FormControl>
         </Grid>

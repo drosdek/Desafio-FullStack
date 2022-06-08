@@ -11,19 +11,17 @@ export const desenvolvedorSlice = createSlice({
   reducers: {
     create: (state, { payload }) => {
       try {
-        const desenvolvedor = payload;
-        state.keys.concat(desenvolvedor.id);
-        state.values.concat(desenvolvedor);
+        state.keys.push(payload._id);
+        state.values.push(payload);
       } catch (err) {
         console.log(err);
       }
     },
     update: (state, { payload }) => {
       try {
-        const index = state.keys.indexOf(payload.id);
+        const index = state.keys.indexOf(payload._id);
         if (index > -1) {
-          const desenvolvedor = {};
-          state.values[index] = desenvolvedor;
+          state.values[index] = payload;
         }
       } catch (err) {
         console.log(err);
@@ -31,10 +29,10 @@ export const desenvolvedorSlice = createSlice({
     },
     remove: (state, { payload }) => {
       try {
-        const index = state.keys.indexOf(payload.id);
+        const index = state.keys.indexOf(payload);
         if (index > -1) {
-          state.keys = state.keys.slice(index, 1);
-          state.values = state.values.slice(index, 1);
+          state.keys.splice(index, 1);
+          state.values.splice(index, 1);
         }
       } catch (err) {
         console.log(err);
@@ -45,7 +43,7 @@ export const desenvolvedorSlice = createSlice({
         state.keys.length = 0;
         state.values.length = 0;
         payload.forEach((desenvolvedor) => {
-          state.keys.push(desenvolvedor.id);
+          state.keys.push(desenvolvedor._id);
           state.values.push(desenvolvedor);
         });
       } catch (err) {
