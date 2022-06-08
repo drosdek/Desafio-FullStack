@@ -58,7 +58,7 @@ async function update(id, nivelParam) {
 }
 
 async function _delete(id) {
-  let uid = await Niveis.findById({ id: id });
+  let uid = await Niveis.findById(id);
   let desenvolvedor = await desenvolvedoresRepository.findOneByNivel(id);
   if (!uid) throw "Nivel não encontrado!";
   if (desenvolvedor) {

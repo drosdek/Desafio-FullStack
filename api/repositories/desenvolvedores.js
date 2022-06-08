@@ -61,7 +61,7 @@ async function update(id, devParam) {
 }
 
 async function _delete(id) {
-  let uid = await Desenvolvedores.findById({ id: id });
+  let uid = await Desenvolvedores.findById(id);
   if (!uid) throw "Desenvolvedor não encontrado!";
   await Desenvolvedores.findByIdAndRemove(id);
 }
