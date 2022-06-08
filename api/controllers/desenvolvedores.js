@@ -9,8 +9,13 @@ module.exports = {
 };
 
 function create(req, res, next) {
+  const data = req.body;
+  if (!data.idade) {
+    data.idade =
+      new Date().getFullYear() - new Date(data.datanascimento).getFullYear();
+  }
   desenvolvedoresRepository
-    .create(req.body)
+    .create(data)
     .then((desenvolvedor) => res.status(201).json(desenvolvedor))
     .catch((err) => next(err));
 }
@@ -36,8 +41,13 @@ function getById(req, res, next) {
 }
 
 function update(req, res, next) {
+  const data = req.body;
+  if (!data.idade) {
+    data.idade =
+      new Date().getFullYear() - new Date(data.datanascimento).getFullYear();
+  }
   desenvolvedoresRepository
-    .update(req.params.id, req.body)
+    .update(req.params.id, data)
     .then((desenvolvedor) => res.json(desenvolvedor))
     .catch((err) => next(err));
 }
