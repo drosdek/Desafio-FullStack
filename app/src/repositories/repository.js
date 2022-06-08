@@ -4,44 +4,41 @@ import config from "../config";
 import Model from "../models/model";
 
 class Repository {
-  static get() {
+  static async fetch() {
     const url = `${config.CONFIG_URL}/${this.endpoint}${this.query}`;
 
-    return Axios.get(url, {
+    return await Axios.get(url, {
       method: "get",
       timeout: 10000
     }).then(({ data }) => {
       if (Array.isArray(data)) {
-        return data.map(this.model.FromJSON);
+        console.log(data);
+        return data.map((item) => new this.model(item).toJSON());
       }
       throw "Erro com servidor!";
     });
   }
 
-  static getById(id) {
+  static async fetchById(id) {
     const url = `${config.CONFIG_URL}/${this.endpoint}/${id}`;
 
-    return Axios.get(url, {
+    return await Axios.get(url, {
       method: "get",
       timeout: 10000
     }).then(({ data }) => {
-      if (Array.isArray(data)) {
-        return data.map(this.model.FromJSON);
+      if (typeof data === "object") {
+        return this.model.FromJSON(data);
       }
       throw "Erro com servidor!";
     });
   }
 
-  static create(data) {
+  static async create(data) {
     const url = `${config.CONFIG_URL}/${this.endpoint}/`;
-    if (data instanceof Model) {
-      return Axios.post(url, {
-        method: "post",
-        timeout: 10000,
-        data: data.toJSON()
-      }).then(({ data }) => {
-        if (Array.isArray(data)) {
-          return data.map(this.model.FromJSON);
+    if (data) {
+      return await Axios.post(url, data, { timeout: 1000 }).then(({ response }) => {
+        if (typeof response === "object") {
+          return this.model.FromJSON(response);
         }
         throw "Erro com servidor!";
       });
@@ -49,16 +46,16 @@ class Repository {
     throw "Parametro data nao e instancia do Model";
   }
 
-  static update(data) {
-    const url = `${config.CONFIG_URL}/${this.endpoint}/`;
+  static async update(id, data) {
+    const url = `${config.CONFIG_URL}/${this.endpoint}/${id}`;
     if (data instanceof Model) {
-      return Axios.put(url, {
+      return await Axios.put(url, {
         method: "put",
         timeout: 10000,
         data: data.toJSON()
       }).then(({ data }) => {
-        if (Array.isArray(data)) {
-          return data.map(this.model.FromJSON);
+        if (typeof data === "object") {
+          return this.model.FromJSON(data);
         }
         throw "Erro com servidor!";
       });
@@ -66,17 +63,12 @@ class Repository {
     throw "Parametro data nao e instancia do Model";
   }
 
-  static remove(id) {
+  static async remove(id) {
     const url = `${config.CONFIG_URL}/${this.endpoint}/${id}`;
 
-    return Axios.delete(url, {
+    return await Axios.delete(url, {
       method: "delete",
       timeout: 10000
-    }).then(({ data }) => {
-      if (Array.isArray(data)) {
-        return data.map(this.model.FromJSON);
-      }
-      throw "Erro com servidor!";
     });
   }
 }
@@ -84,3 +76,5 @@ class Repository {
 Repository.endpoint = "";
 Repository.query = "";
 Repository.model = Model;
+
+export default Repository;
