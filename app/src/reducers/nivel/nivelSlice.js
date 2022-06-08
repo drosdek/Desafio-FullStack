@@ -8,19 +8,17 @@ export const nivelSlice = createSlice({
   reducers: {
     create: (state, { payload }) => {
       try {
-        const nivel = payload;
-        state.keys.concat(nivel.id);
-        state.values.concat(nivel);
+        state.keys.push(payload._id);
+        state.values.push(payload);
       } catch (err) {
         console.log(err);
       }
     },
     update: (state, { payload }) => {
       try {
-        const index = state.keys.indexOf(payload.id);
+        const index = state.keys.indexOf(payload._id);
         if (index > -1) {
-          const nivel = {};
-          state.values[index] = nivel;
+          state.values[index] = payload;
         }
       } catch (err) {
         console.log(err);
@@ -28,10 +26,10 @@ export const nivelSlice = createSlice({
     },
     remove: (state, { payload }) => {
       try {
-        const index = state.keys.indexOf(payload.id);
+        const index = state.keys.indexOf(payload);
         if (index > -1) {
-          state.keys = state.keys.slice(index, 1);
-          state.values = state.values.slice(index, 1);
+          state.keys.splice(index, 1);
+          state.values.splice(index, 1);
         }
       } catch (err) {
         console.log(err);
@@ -42,7 +40,7 @@ export const nivelSlice = createSlice({
         state.keys.length = 0;
         state.values.length = 0;
         payload.forEach((nivel) => {
-          state.keys.push(nivel.id);
+          state.keys.push(nivel._id);
           state.values.push(nivel);
         });
       } catch (err) {
