@@ -85,7 +85,7 @@ Para iniciar a aplicação, execute o comando:
 npm run start
 ```
 
-A API estara acessivel em http://localhost:3000
+A API estara acessivel em http://localhost:3005
 
 ### Consumindo a API
 

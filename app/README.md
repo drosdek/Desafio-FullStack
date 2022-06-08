@@ -21,16 +21,13 @@
 <!-- TABLE OF CONTENTS -->
 ## Tabela de conteúdo
 
-* [Sobre o Projeto](#about-the-project)
-  * [Built With](#built-with)
-* [Getting Started](#getting-started)
-  * [Prerequisites](#prerequisites)
-  * [Installation](#installation)
-* [Usage](#usage)
-* [Roadmap](#roadmap)
-* [Contributing](#contributing)
-* [License](#license)
-* [Contact](#contact)
+* [Sobre o Projeto](#sobre-o-projeto)
+  * [Construido com](#construindo-com)
+* [Começando](#comecando)
+  * [Prerequisitos](#prerequisitos)
+  * [Instalação](#instalação)
+* [Usando](#usando)
+* [Contato](#contato)
 * [Acknowledgements](#acknowledgements)
 
 
@@ -89,7 +86,7 @@ Para iniciar a aplicação, execute o comando:
 npm run start
 ```
 
-A aplicação estara acessivel em http://localhost:3001
+A aplicação estara acessivel em http://localhost:3000 por padrão
 
 <!-- CONTACT -->
 ## Contato
