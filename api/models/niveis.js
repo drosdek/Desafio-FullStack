@@ -1,11 +1,21 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const schema = new Schema({
+const niveisSchema = new Schema({
   nivel: { type: String, unique: true, required: true },
+  createdAt: { type: Date, default: Date.now }
 });
 
-schema.set("toJSON", {
+// Define o parâmetro createdAt igual à hora atual
+niveisSchema .pre("save", (next) => {
+  now = new Date();
+  if (!this.createdAt) {
+    this.createdAt = now;
+  }
+  next();
+});
+
+niveisSchema.set("toJSON", {
   virtuals: true,
   versionKey: false,
   transform: function (doc, ret) {
@@ -14,4 +24,4 @@ schema.set("toJSON", {
   },
 });
 
-module.exports = mongoose.model("Niveis", schema);
+module.exports = mongoose.model("niveis", niveisSchema);
