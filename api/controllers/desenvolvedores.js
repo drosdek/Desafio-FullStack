@@ -9,11 +9,13 @@ module.exports = {
 };
 
 function create(req, res, next) {
+  //verifica se tem idade se não tiver calcula e preenche automaticamente
   const data = req.body;
   if (!data.idade) {
     data.idade =
       new Date().getFullYear() - new Date(data.datanascimento).getFullYear();
   }
+  
   desenvolvedoresRepository
     .create(data)
     .then((desenvolvedor) => res.status(201).json(desenvolvedor))
@@ -41,6 +43,7 @@ function getById(req, res, next) {
 }
 
 function update(req, res, next) {
+  //verifica se tem idade se não tiver calcula e preenche automaticamente
   const data = req.body;
   if (!data.idade) {
     data.idade =

@@ -27,7 +27,7 @@ async function findOneByNivel(id) {
 }
 
 async function create(devParam) {
-  // validação
+  // Verifica se ja tem o desenvolvedor cadastrado com mesmo nome
   if (await Desenvolvedores.findOne({ nome: devParam.nome })) {
     throw 'Desenvolvedor com nome "' + devParam.nome + '" ja está cadastrado!';
   }
@@ -43,8 +43,10 @@ async function create(devParam) {
 async function update(id, devParam) {
   const desenvolvedor = await Desenvolvedores.findById(id);
 
-  // validação
+  // verifica se encontrou desenvolvedor
   if (!desenvolvedor) throw "Desenvolvedor não encontrado!";
+
+  // Verifica se ja tem o desenvolvedor cadastrado com mesmo nome
   if (
     desenvolvedor.nome !== devParam.nome &&
     (await Desenvolvedores.findOne({ nome: devParam.nome }))
@@ -62,6 +64,8 @@ async function update(id, devParam) {
 
 async function _delete(id) {
   let uid = await Desenvolvedores.findById(id);
+  //verifica se possui desenvolvedor com a id para remover
   if (!uid) throw "Desenvolvedor não encontrado!";
+  
   await Desenvolvedores.findByIdAndRemove(id);
 }
