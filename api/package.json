@@ -5,8 +5,8 @@
   "author": "Josnei Drosdek",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
-    "teste": "mocha --timeout 10000"
+    "start": "NODE_ENV=dev node ./bin/www",
+    "test": "mocha --timeout 10000"
   },
   "dependencies": {
     "body-parser": "^1.20.0",

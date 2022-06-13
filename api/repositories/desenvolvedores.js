@@ -1,3 +1,4 @@
+const { json } = require("express");
 const db = require("../middleware/db");
 
 const Desenvolvedores = db.Desenvolvedores;
@@ -57,7 +58,11 @@ async function update(id, devParam) {
   // copia da propriedade devParam para desenvolvedor
   Object.assign(desenvolvedor, devParam);
 
-  await desenvolvedor.save();
+  await desenvolvedor.save((err, desenvolvedor) => {
+    if (err) {
+      return err;
+    }
+  });
 
   return desenvolvedor;
 }
@@ -66,6 +71,6 @@ async function _delete(id) {
   let uid = await Desenvolvedores.findById(id);
   //verifica se possui desenvolvedor com a id para remover
   if (!uid) throw "Desenvolvedor não encontrado!";
-  
+
   await Desenvolvedores.findByIdAndRemove(id);
 }

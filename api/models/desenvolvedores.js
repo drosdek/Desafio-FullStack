@@ -2,10 +2,10 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const desenvolvedorSchema = new Schema({
-  nivel: { type: Schema.Types.ObjectId, ref: "Niveis", required: true },
+  nivel: { type: Schema.Types.ObjectId, ref: "niveis", required: true },
   nome: { type: String, required: true },
-  sexo: { type: String },
-  datanascimento: { type: Date },
+  sexo: { type: String, required: true },
+  datanascimento: { type: Date, required: true },
   idade: { type: Number },
   hobby: { type: String },
   createdAt: { type: Date, default: Date.now },
